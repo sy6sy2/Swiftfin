@@ -15,6 +15,8 @@ import SwiftUI
 @main
 struct SwiftfinApp: App {
 
+    @Environment(\.scenePhase) var scenePhase
+
     init() {
 
         // Logging
@@ -36,6 +38,15 @@ struct SwiftfinApp: App {
     var body: some Scene {
         WindowGroup {
             MainCoordinator().view()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .active {
+                Notifications[.didEnterActivePhase].post()
+            } else if newPhase == .inactive {
+                Notifications[.didEnterInactivePhase].post()
+            } else if newPhase == .background {
+                Notifications[.didEnterBackgroundPhase].post()
+            }
         }
     }
 }

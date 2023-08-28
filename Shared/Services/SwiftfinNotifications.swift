@@ -63,4 +63,7 @@ extension Notifications.Key {
     static let didChangeServerCurrentURI = NotificationKey("didChangeCurrentLoginURI")
     static let didSendStopReport = NotificationKey("didSendStopReport")
     static let didRequestGlobalRefresh = NotificationKey("didRequestGlobalRefresh")
+    static let didEnterActivePhase = NotificationKey("didEnterActivePhase")
+    static let didEnterInactivePhase = NotificationKey("didEnterInactivePhase")
+    static let didEnterBackgroundPhase = NotificationKey("didEnterBackgroundPhase")
 }

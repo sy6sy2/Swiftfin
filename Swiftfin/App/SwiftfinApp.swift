@@ -16,6 +16,8 @@ import SwiftUI
 @main
 struct SwiftfinApp: App {
 
+    @Environment(\.scenePhase) var scenePhase
+
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
 
@@ -64,6 +66,15 @@ struct SwiftfinApp: App {
             .ignoresSafeArea()
             .onOpenURL { url in
                 AppURLHandler.shared.processDeepLink(url: url)
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    Notifications[.didEnterActivePhase].post()
+                } else if newPhase == .inactive {
+                    Notifications[.didEnterInactivePhase].post()
+                } else if newPhase == .background {
+                    Notifications[.didEnterBackgroundPhase].post()
+                }
             }
         }
     }
