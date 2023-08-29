@@ -21,6 +21,24 @@ import VLCUI
 
 class VideoPlayerManager: ViewModel {
 
+    override init() {
+        super.init()
+        Notifications[.didEnterBackgroundPhase].subscribe(self, selector: #selector(didEnterBackgroundPhase))
+        Notifications[.didEnterActivePhase].subscribe(self, selector: #selector(didEnterActivePhase))
+    }
+
+    @objc
+    func didEnterBackgroundPhase() {
+        logger.info("Received `didEnterBackgroundPhase` from SwiftfinNotificationCenter.")
+        proxy.pause()
+    }
+
+    @objc
+    func didEnterActivePhase() {
+        logger.info("Received `didEnterActivePhase` from SwiftfinNotificationCenter.")
+        proxy.play()
+    }
+
     class CurrentProgressHandler: ObservableObject {
 
         @Published
